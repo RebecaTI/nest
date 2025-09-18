@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { DatabaseService } from 'src/database/database.service';
+import { CreateEmployeeProps } from './employees.controller';
 
 @Injectable()
 export class EmployeesService {
   constructor(private readonly databaseService: DatabaseService) {}
-  async create(createEmployeeDto: Prisma.EmployeeCreateInput) {
+  async create(createEmployeeDto: CreateEmployeeProps) {
     return this.databaseService.employee.create({
       data: createEmployeeDto,
     });
@@ -19,7 +20,7 @@ export class EmployeesService {
     return `This action returns a #${id} employee`;
   }
 
-  async update(id: number, updateEmployeeDto: Prisma.EmployeeUpdateInput) {
+  async update(id: number, updateEmployeeDto: CreateEmployeeProps) {
     return `This action updates a #${id} employee`;
   }
 

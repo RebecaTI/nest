@@ -11,12 +11,18 @@ import {
 import { EmployeesService } from './employees.service';
 import { Prisma } from '@prisma/client';
 
+export interface CreateEmployeeProps {
+  name: string;
+  email: string;
+  role: 'INTERN' | 'ENGINEER' | 'ADMIN';
+}
+
 @Controller('employees')
 export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
 
   @Post()
-  create(@Body() createEmployeeDto: Prisma.EmployeeCreateInput) {
+  create(@Body() createEmployeeDto: CreateEmployeeProps) {
     return this.employeesService.create(createEmployeeDto);
   }
 
@@ -33,7 +39,7 @@ export class EmployeesController {
   @Patch(':id')
   update(
     @Param('id') id: string,
-    @Body() updateEmployeeDto: Prisma.EmployeeUpdateInput,
+    @Body() updateEmployeeDto: CreateEmployeeProps,
   ) {
     return this.employeesService.update(+id, updateEmployeeDto);
   }

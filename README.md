@@ -5,94 +5,307 @@
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+# NestJS API - Sistema de Gerenciamento de Usuários e Funcionários
 
-## Description
+Uma API RESTful construída com NestJS, TypeScript e Prisma ORM para gerenciamento de usuários e funcionários com autenticação baseada em roles e rate limiting.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 🚀 Características
 
-## Project setup
+- **Framework**: NestJS com TypeScript
+- **Banco de Dados**: PostgreSQL com Prisma ORM
+- **Validação**: Class-validator e Class-transformer
+- **Rate Limiting**: Throttler integrado
+- **Logging**: Sistema customizado de logs
+- **Testes**: Jest para testes unitários e e2e
+- **CORS**: Habilitado para desenvolvimento
+- **Global Exception Filter**: Tratamento centralizado de erros
+
+## 📋 Funcionalidades
+
+### Módulo de Usuários (`/api/users`)
+
+- ✅ Listar todos os usuários (com filtro por role)
+- ✅ Buscar usuário por ID
+- ✅ Criar novo usuário
+- ✅ Atualizar usuário existente
+- ✅ Deletar usuário
+
+### Módulo de Funcionários (`/api/employees`)
+
+- ✅ CRUD completo de funcionários
+- ✅ Filtro por role (INTERN, ENGINEER, ADMIN)
+- ✅ Rate limiting personalizado
+- ✅ Logging de requisições com IP
+- ✅ Throttling configurável por endpoint
+
+### Sistema de Roles
+
+- `INTERN` - Estagiário
+- `ENGINEER` - Engenheiro
+- `ADMIN` - Administrador
+
+## 🛠️ Tecnologias Utilizadas
+
+- **NestJS** v11.0.1 - Framework Node.js
+- **Prisma** v6.16.2 - ORM e Database toolkit
+- **PostgreSQL** - Banco de dados
+- **TypeScript** v5.7.3 - Tipagem estática
+- **Class-validator** - Validação de DTOs
+- **Jest** - Framework de testes
+- **ESLint + Prettier** - Linting e formatação
+
+## 📦 Pré-requisitos
+
+- Node.js (versão 18 ou superior)
+- PostgreSQL
+- npm ou yarn
+
+## 🚀 Instalação
+
+1. **Clone o repositório**
 
 ```bash
-$ npm install
+git clone <url-do-repositorio>
+cd nest
 ```
 
-## Compile and run the project
+2. **Instale as dependências**
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm install
 ```
 
-## Run tests
+3. **Configure as variáveis de ambiente**
+   Crie um arquivo `.env` na raiz do projeto:
+
+```env
+DATABASE_URL="postgresql://usuario:senha@localhost:5432/nome_do_banco"
+DIRECT_URL="postgresql://usuario:senha@localhost:5432/nome_do_banco"
+PORT=3000
+```
+
+4. **Configure o banco de dados**
 
 ```bash
-# unit tests
-$ npm run test
+# Gerar cliente Prisma
+npm run db:generate
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+# Aplicar migrações (ou push do schema)
+npm run db:push
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+5. **Inicie a aplicação**
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+# Desenvolvimento
+npm run start:dev
+
+# Produção
+npm run build
+npm run start:prod
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## 📚 Documentação da API
 
-## Resources
+### Base URL
 
-Check out a few resources that may come in handy when working with NestJS:
+```
+http://localhost:3000/api
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### Endpoints - Usuários
 
-## Support
+#### GET `/users`
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Lista todos os usuários ou filtra por role.
 
-## Stay in touch
+```bash
+GET /api/users
+GET /api/users?role=ADMIN
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+#### GET `/users/:id`
 
-## License
+Busca usuário por ID.
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+```bash
+GET /api/users/1
+```
+
+#### POST `/users`
+
+Cria novo usuário.
+
+```bash
+POST /api/users
+Content-Type: application/json
+
+{
+  "name": "João Silva",
+  "email": "joao@exemplo.com",
+  "role": "ENGINEER"
+}
+```
+
+#### PATCH `/users/:id`
+
+Atualiza usuário existente.
+
+```bash
+PATCH /api/users/1
+Content-Type: application/json
+
+{
+  "name": "João Santos"
+}
+```
+
+#### DELETE `/users/:id`
+
+Remove usuário.
+
+```bash
+DELETE /api/users/1
+```
+
+### Endpoints - Funcionários
+
+#### GET `/employees`
+
+Lista funcionários (com rate limiting).
+
+```bash
+GET /api/employees
+GET /api/employees?role=INTERN
+```
+
+#### GET `/employees/:id`
+
+Busca funcionário por ID (rate limiting: 1 req/segundo).
+
+```bash
+GET /api/employees/1
+```
+
+#### POST `/employees`
+
+Cria novo funcionário.
+
+```bash
+POST /api/employees
+Content-Type: application/json
+
+{
+  "name": "Maria Silva",
+  "email": "maria@exemplo.com",
+  "role": "ADMIN"
+}
+```
+
+#### PATCH `/employees/:id`
+
+Atualiza funcionário.
+
+```bash
+PATCH /api/employees/1
+Content-Type: application/json
+
+{
+  "role": "ENGINEER"
+}
+```
+
+#### DELETE `/employees/:id`
+
+Remove funcionário.
+
+```bash
+DELETE /api/employees/1
+```
+
+## 🧪 Testes
+
+```bash
+# Testes unitários
+npm run test
+
+# Testes e2e
+npm run test:e2e
+
+# Testes com coverage
+npm run test:cov
+
+# Testes em modo watch
+npm run test:watch
+```
+
+## 📊 Rate Limiting
+
+O sistema implementa rate limiting com duas configurações:
+
+- **Short**: 3 requisições por segundo
+- **Long**: 10 requisições por minuto
+
+Endpoints específicos podem ter configurações personalizadas.
+
+## 🗃️ Estrutura do Banco
+
+### Tabela Employee
+
+```sql
+CREATE TABLE Employee (
+  id        SERIAL PRIMARY KEY,
+  name      VARCHAR NOT NULL,
+  email     VARCHAR UNIQUE NOT NULL,
+  role      Role NOT NULL,
+  createdAt TIMESTAMP DEFAULT NOW(),
+  updatedAt TIMESTAMP DEFAULT NOW()
+);
+```
+
+### Enum Role
+
+```sql
+CREATE TYPE Role AS ENUM ('INTERN', 'ENGINEER', 'ADMIN');
+```
+
+## 📝 Scripts Disponíveis
+
+```bash
+# Banco de dados
+npm run db:generate    # Gera cliente Prisma
+npm run db:pull        # Puxa schema do banco
+npm run db:push        # Aplica schema ao banco
+
+# Desenvolvimento
+npm run start:dev      # Modo desenvolvimento
+npm run start:debug    # Modo debug
+npm run start:prod     # Modo produção
+
+# Qualidade de código
+npm run lint           # ESLint
+npm run format         # Prettier
+npm run build          # Build para produção
+```
+
+## 🏗️ Estrutura do Projeto
+
+```
+src/
+├── app.module.ts              # Módulo principal
+├── main.ts                    # Entry point
+├── all-exceptions.filter.ts   # Filtro global de exceções
+├── routes.rest               # Arquivo de testes REST
+├── database/                 # Módulo do banco
+├── users/                    # Módulo de usuários
+│   ├── dto/                  # Data Transfer Objects
+│   ├── users.controller.ts   # Controller
+│   ├── users.service.ts      # Service
+│   └── users.module.ts       # Module
+├── employees/                # Módulo de funcionários
+│   ├── entities/             # Entidades
+│   ├── employees.controller.ts
+│   ├── employees.service.ts
+│   └── employees.module.ts
+└── my-logger/                # Sistema de logging
+```
